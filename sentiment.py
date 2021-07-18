@@ -3,6 +3,7 @@ import tweepy
 from tweepy import OAuthHandler
 from textblob import TextBlob
 import configparser
+from colorama import Fore, Style
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -104,28 +105,34 @@ def main():
     # picking positive tweets from tweets
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
     # percentage of positive tweets
-    print("Positive tweets percentage: {:.2f} %".format(
+    print(Fore.GREEN+Style.BRIGHT+"\n\nPositive tweets percentage: {:.2f} %".format(
         100*len(ptweets)/len(tweets)))
     # picking negative tweets from tweets
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
-    # percentage of negative tweets
-    print("Negative tweets percentage: {:.2f} %".format(
-        100*len(ntweets)/len(tweets)))
     # percentage of neutral tweets
-    print("Neutral tweets percentage: {:.2f} % \
+    print(Style.RESET_ALL+"Neutral tweets percentage: {:.2f} % \
 		".format(100*(len(tweets) - (len(ntweets)+len(ptweets)))/len(tweets)))
+    # percentage of negative tweets
+    print(Fore.CYAN+"Negative tweets percentage: {:.2f} %".format(
+        100*len(ntweets)/len(tweets)))
 
     # printing first 10 positive tweets
-    print("\n\nPositive tweets:")
-    for tweet in ptweets[:10]:
+    print(Fore.GREEN+Style.BRIGHT+"\n\nPositive tweets:")
+    for tweet in ptweets[:5]:
         print(tweet['text'])
         print("-----------------------")
 
+    # reset all styles
+    print(Style.RESET_ALL)
+
     # printing first 10 negative tweets
-    print("\n\nNegative tweets:")
-    for tweet in ntweets[:10]:
+    print(Fore.CYAN+"\n\nNegative tweets:")
+    for tweet in ntweets[:5]:
         print(tweet['text'])
         print("-----------------------")
+
+    # reset all styles
+    print(Style.RESET_ALL)
 
 
 if __name__ == "__main__":

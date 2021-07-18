@@ -2,6 +2,8 @@
 
 Python project on Twitter Sentiment Analysis
 
+![Twitter Sentiment Analysis](/twitter.png)
+
 # Getting Started
 
 #### Create a virtual environment
